@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<base target="_top">
+<link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
+ <style>
+ /* .main-header {
+    position: fixed; 
+} */
+
+body {
+  color: #676767;
+  font-size: 12px;
+  font-family: 'open sans';
+  background-color: #fbfbfb;
+}
+
+fieldset {
+    border: 0;
+}
+
+.form-container {
+    margin: 0px 100px 100px 100px;
+}
+
+.form-label {
+    margin: 20px;
+}
+
+div#output {
+    margin-top: 20px;
+}
+
+nav .container {
+    background-color: white;
+} 
+
+ .navbar-default .navbar-nav>li>a {
+    font-size: 16px;
+    color: black
+}
+
+.navbar-default .navbar-brand {
+    font-size: 20px;
+    color: black;
+}
+
+header.main-header {
+    margin-bottom: 90px;
+}
+
+/* .navbar-default{
+    background-color: green!important;
+} */
+.header {
+    width:100%;
+    height: 100px;
+}
+
+
+.header {
+    line-height: 1.1;
+    font-weight: bold;
+    text-align: center;
+    width: 60%; /* 70% of the parent*/
+    margin:10px auto;
+}
+
+.header h1 {
+    font-size: 5em;
+}
+
+#output {
+    font-size: 20px;
+    padding: 20px 30px;
+}
+
+input {
+  padding: 5px;
+  margin-left: 30px;
+}
+
+input[type="button"] {
+    border-radius: 5px;
+    color: #9f1719;
+    background: #f0f0f0;
+    box-shadow: 2px 2px #888888;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 20px;
+    padding: 8px 25px;
+}
+
+h2 {
+    text-align: center; 
+}
+
+ol li {
+     font-size: 18px;
+}
+
+p {
+    font-size: 20px;
+    line-height: 27px;
+    font-weight: 500;
+
+}
+
+#position {
+  font-size: 18px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.links{
+    text-align: center
+}
+
+.links p a{
+    font-size: 16px;
+    font-size: 22px;
+    line-height: 1.6;
+    text-decoration: underline;
+}
+
+.links p {
+    padding:25px;
+}
+
+.links p:last-child {
+    padding-bottom: 60px;
+}
+
+.navbar-default .navbar-nav>li>a:focus {
+    background-color: black;
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+   color:gray;
+}
+
+.navbar-brand {
+    padding: 18px 15px;
+}
+
+.navbar-nav>li>a {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 20px;
+    padding: 10px;
+}
+
+.page-content ul li:last-child {
+    font-size: 17px;
+}
+
+.page-content a {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.page-content a:hover {
+    color: rgba(0,95,255,1);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.page-content{
+    margin-bottom: 60px;
+}
+
+.navbar-default {
+    border-color: white!important;
+    -webkit-box-shadow: inset 0 1px 0 white, 0 1px 5px white;
+    box-shadow: inset 0 1px 0 white, 0 1px 5px white;
+}
+
+@media only screen  and (max-width : 500px) {
+    /* Styles */
+    .form-container {
+            margin: 0px;
+        }
+}
+ </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="uploaderForm">
+        <div>
+            <p>To apply for the program, please upload two documents, following the instructions below. Applications must be submitted by September 18, 2018.</p>
+                <div class="form-label">
+                <label>Name: *</label>
+                </div>
+                <input type="text" name="applicantName" id="applicantName"
+                    placeholder="Your Name">
+                <div class="form-label">
+                    <label>Email: *</label> 
+                </div>
+                <input type="text" name="applicantEmail" id="applicantEmail"
+                        placeholder="Your Email">
+                 <div class="form-label">
+                    <label>Phone Number: *</label> 
+                </div>
+                <input type="text" name="applicantPhone" id="applicantPhone"
+                        placeholder="Your Phone Number">
+                <div class="form-label">
+                    <label>Did someone recommend that you apply? If so, please list below:</label> 
+                </div>
+                <input type="text" name="applicantRec" id="applicantRec"
+                        placeholder="Your Answer">
+                <div>
+                 <div class="form-label">
+                    <label>What level of staff position they are interested in? *</label> 
+                </div>
+                  <fieldset id="position">
+                    <input type="checkbox" value="Early-Career" name="position">Early-Career<br>
+                    <input type="checkbox" value="Mid-Career" name="position">Mid-Career<br>
+                    <input type="checkbox" value="Subject Matter Expert" name="position">Subject Matter Expert<br>
+                    <input type="checkbox" value="Communications" name="position">Communications<br>
+                  </fieldset>
+                <ol><li><p>Your CV or Resume *</p><input type="file" name="files[1]" id="filesToUpload"multiple></li><li>
+                <p>A document with your answers to the following two questions:*</p>
+                <ol><li><p>Why do you want to work on Capitol Hill? (300 Words)</p></li>
+                <li><p>Name three pieces of legislation for which you would want to advocate and why.(Up to 300 words)</p></li>
+                </ol></li>
+                <input type="file" name="files[2]" id="filesToUpload2"multiple>
+                </ol>
+                </div>
+                <input type="button" value="Submit" onclick="uploadFiles()">
+            </div>
+        </form>
+        <div id="output"></div>
+    </div>
+	<script>
+		var rootFolderId = '15t15D7_Pjtwrjhg49PCTlc9Rlz3ZgejE';
+		var numUploads = {};
+		numUploads.done = 0;
+		numUploads.total = 0;
+      
+		// Upload the files into a folder in drive
+		// This is set to send them all to one folder (specificed in the .gs file)
+        
+		function uploadFiles(files) {
+            var firstFile = document.getElementById('filesToUpload').files;
+            var secondFile = document.getElementById('filesToUpload2').files;
+             
+            var length = firstFile.length + secondFile.length; 
+            
+			var allFiles = {
+              0: firstFile[0],
+              1: secondFile[0],
+              length: length
+            }
+  
+			var applicantName = document.getElementById('applicantName').value;
+			if (!applicantName) {
+				window.alert('Missing applicant name');
+			}
+            
+			var applicantEmail = document.getElementById('applicantEmail').value;
+			if (!applicantEmail) {
+				window.alert('Missing applicant email');
+			}
+            
+            var applicantPhone = document.getElementById('applicantPhone').value;
+			if (!applicantPhone) {
+				window.alert('Missing applicant phone number');
+			}
+            
+            var applicantRec = document.getElementById('applicantRec').value;
+			if (!applicantRec) {
+				applicantRec = 'No'
+			}
+            
+            function getPositions() {
+              var positions = document.forms[0];
+              var positionsTxt = "";
+              for (var i = 0; i < positions.length; i++) {
+                if (positions[i].checked) {
+                    positionsTxt = positionsTxt + positions[i].value + " "; 
+                }
+              }
+              if(positionsTxt === ""){
+                window.alert('Missing applicant position');
+              }
+              return positionsTxt;
+            }
+            
+            var applicantPosition = getPositions()
+         
+			var folderName = applicantName + ' ' + applicantEmail;
+			if (allFiles.length < 2) {
+				window.alert('Please upload all required files');
+			} else {
+				numUploads.total = allFiles.length;
+				google.script.run.withSuccessHandler(function(r) {
+					// send files after the folder is created...
+					for (var i = 0; i < allFiles.length; i++) {
+						// Send each file at a time
+						uploadFile(allFiles[i], r.folderId);
+					}
+                    
+                    google.script.run.addFile(r.folderId, applicantEmail, applicantPhone, applicantRec, applicantPosition)
+                    
+				}).createFolder(rootFolderId, folderName);
+                
+			}
+        
+		}
+        
+		function uploadFile(file, folderId) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var content = reader.result;
+                
+				document.getElementById('output').innerHTML = 'uploading '
+						+ file.name + '...';
+				//window.alert('uploading ' + file.name + '...');				
+				google.script.run.withSuccessHandler(onFileUploaded)
+						.uploadFile(content, file.name, folderId)
+			}
+			reader.readAsDataURL(file);
+		}
+        
+        function clearForm(){
+          document.getElementById('applicantName').value = ''
+          document.getElementById('applicantEmail').value = ''
+          document.getElementById('applicantPhone').value = ''
+          document.getElementById('applicantRec').value = ''
+          document.getElementById('filesToUpload').value = ''
+          document.getElementById('filesToUpload2').value = ''
+           
+          var positions = document.forms[0];
+          for (var i = 0; i < positions.length; i++) {
+            if (positions[i].checked) {
+              positions[i].checked = false
+           }
+          }      
+         }
+        
+		function onFileUploaded(r) {
+			numUploads.done++;
+			document.getElementById('output').innerHTML = 'uploaded '
+					+ r.fileName + ' (' + numUploads.done + '/'
+					+ numUploads.total + ' files).';
+			if (numUploads.done == numUploads.total) {
+				document.getElementById('output').innerHTML = 'All of the '
+						+ numUploads.total + ' files are uploaded';
+				numUploads.done = 0;
+                clearForm();
+			}
+		}
+	</script>
+</body>
+</html>
