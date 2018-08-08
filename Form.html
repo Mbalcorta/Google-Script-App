@@ -179,19 +179,27 @@ label {
     box-shadow: inset 0 1px 0 white, 0 1px 5px white;
 }
 
+#support_question_wrapper{
+  margin-left: 30px; 
+}
+
 @media only screen  and (max-width : 500px) {
     /* Styles */
     .form-container {
-            margin: 0px;
-        }
+      margin: 10px;
+     }
+     
+     #support_question_wrapper {
+         margin-left: 10px;
+    }
 }
  </style>
 </head>
 <body>
-    <div class="form-container">
+    <div class="form-container" style="display: none;">
         <form id="uploaderForm">
         <div>
-            <p>To apply for the program, please upload two documents, following the instructions below. Applications must be submitted by September 18, 2018.</p>
+            <p id="form-header"></p>
                 <div class="form-label">
                 <label>Name: *</label>
                 </div>
@@ -222,13 +230,13 @@ label {
                     <input type="checkbox" value="Subject Matter Expert" name="position">Subject Matter Expert<br>
                     <input type="checkbox" value="Communications" name="position">Communications<br>
                   </fieldset>
-                <ol><li><p>Your CV or Resume *</p><input type="file" name="files[1]" id="filesToUpload"multiple></li><li>
-                <p>A document with your answers to the following two questions:*</p>
-                <ol><li><p>Why do you want to work on Capitol Hill? (300 Words)</p></li>
-                <li><p>Name three pieces of legislation for which you would want to advocate and why.(Up to 300 words)</p></li>
-                </ol></li>
+                <p id="resume"></p><input type="file" name="files[1]" id="filesToUpload"multiple>
+                <p id="support_docs"></p>
+                <div id="support_question_wrapper">
+                   <p id="why"></p>
+                   <p id="law"></p>
+                </div>
                 <input type="file" name="files[2]" id="filesToUpload2"multiple>
-                </ol>
                 </div>
                 <input type="button" value="Submit" onclick="uploadFiles()">
             </div>
@@ -236,7 +244,21 @@ label {
         <div id="output"></div>
     </div>
 	<script>
-		var rootFolderId = '15t15D7_Pjtwrjhg49PCTlc9Rlz3ZgejE';
+        //gets text from tipe.io to update page content
+        google.script.run.withSuccessHandler (function (result) {
+          document.getElementById('form-header').innerHTML = result.applyHeader
+          document.getElementById('resume').innerHTML = result.resumePrompt
+          document.getElementById('support_docs').innerHTML = result.docsPrompt
+          document.getElementById('why').innerHTML = result.whyPrompt
+          document.getElementById('law').innerHTML = result.lawPrompt
+          document.getElementsByClassName('form-container')[0].style.display="block"
+         })
+          .withFailureHandler (function (error) {
+            console.log('on error handler ',error);  
+        })
+         .getText();
+         
+		var rootFolderId = google_root_folder_id;
 		var numUploads = {};
 		numUploads.done = 0;
 		numUploads.total = 0;
