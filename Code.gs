@@ -1,3 +1,4 @@
+
 function doGet() {
   const output = HtmlService.createHtmlOutputFromFile('Form').setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL).setSandboxMode(HtmlService.SandboxMode.IFRAME);
   return output
@@ -6,7 +7,7 @@ function doGet() {
 
 function createFolder(parentFolderId, folderName) {
 	try {
-		var parentFolder = DriveApp.getFolderById(FolderIdNumber);
+        var parentFolder = DriveApp.getFolderById(google_folder_id);
 		var folders = parentFolder.getFoldersByName(folderName);
 		var folder;
 		if (folders.hasNext()) {
@@ -29,7 +30,7 @@ var answers = 'Email: '+applicantEmail+'\n'+'Phone number: '+applicantPhone+'\n'
 
 
 var targetFolder = DriveApp.getFolderById(folderId);
-              targetFolder.createFile('Questions.txt', 
+              targetFolder.createFile('Questions.docx', 
                                  answers, 
                                 MimeType.PLAIN_TEXT)  
 }
@@ -59,5 +60,35 @@ function uploadFile(base64Data, fileName, folderId) {
 		return {
 			'error' : e.toString()
 		};
+	}
+}
+
+function getText() {
+ 	var response = UrlFetchApp.fetch('https://api.tipe.io/api/v1/document/'+document_id, {
+			method: "GET",
+			muteHttpExceptions: true, 
+			headers: {
+				"Content-Type": "application/json",
+				'Authorization': auth_key,
+				'Tipe-Id': tipe_id
+			}
+		})
+
+		if(response.getResponseCode() === 200){
+		var applyPageTextWithEmptySpaces = JSON.parse(response.getContentText()).blocks[3].value.split("\n")
+		var applyPageText = []
+		for(var i = 0; i < applyPageTextWithEmptySpaces.length; i++){
+			if(applyPageTextWithEmptySpaces[i] !== ""){
+				applyPageText.push(applyPageTextWithEmptySpaces[i].trim())
+			}
+		}
+
+		return {
+			applyHeader: applyPageText[0],
+			resumePrompt: applyPageText[1],
+			docsPrompt: applyPageText[2],
+			whyPrompt: applyPageText[3],
+			lawPrompt: applyPageText[4]
+		}
 	}
 }
