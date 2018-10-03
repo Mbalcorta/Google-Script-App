@@ -370,10 +370,23 @@ label {
 					+ r.fileName + ' (' + numUploads.done + '/'
 					+ numUploads.total + ' files).';
 			if (numUploads.done == numUploads.total) {
-				document.getElementById('output').innerHTML = 'All of the '
-						+ numUploads.total + ' files are uploaded';
 				numUploads.done = 0;
-                clearForm();
+                /*var applicantEmail = document.getElementById('applicantEmail').value;*/
+                var applicantEmail = 'me'
+                google.script.run.withSuccessHandler(function(result){
+                  let documentsSent = 'All of the '+ numUploads.total + ' files are uploaded, '
+                  
+                  if(result.emailSend){
+                    documentsSent += result.emailSend
+                  } else {
+                    documentsSent += result.error
+                  }
+                  
+                  document.getElementById('output').innerHTML = documentsSent;
+                  
+                  clearForm();
+                })
+                .emailConfirmation(applicantEmail)
 			}
 		}
 	</script>

@@ -92,3 +92,24 @@ function getText() {
 		}
 	}
 }
+
+function emailConfirmation(email){
+   try {
+    //Insert your script logic here
+    MailApp.sendEmail(email,
+                "Progressive Talent Pipeline has received your application",
+                "If you have any questions feel free to reach out to us at progressivepipelineproject@gmail.com");
+     return {
+       'emailSend': 'confirmation email has been sent.'
+     }
+  } catch(e) {
+    //Catch any error here. Example below is just sending an email with the error.
+    var errorMessage = 'error sending confirmation email to ' + email; 
+    MailApp.sendEmail('mateo@demandprogress.org',
+                     errorMessage,
+                    e);
+    return {
+      'error': errorMessage
+    }
+  }
+}
